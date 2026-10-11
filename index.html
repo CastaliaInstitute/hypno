@@ -4,14 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10131b">
-  <meta name="description" content="Hypno — a Castalia Institute project.">
+  <meta name="description" content="Hypno explores AI-guided hypnotic experiences composed from conversation, generated audio, and immersive visuals.">
+  <meta property="og:title" content="Hypno — Castalia Institute">
+  <meta property="og:description" content="An AI guide for immersive journeys through attention and imagination.">
+  <meta property="og:url" content="https://hypno.castalia.institute/">
+  <meta property="og:type" content="website">
   <title>Hypno — Castalia Institute</title>
   <style>
     :root {
       color-scheme: dark;
+      --night: #10131b;
+      --panel: #191d2a;
+      --ink: #edf0f7;
+      --muted: #b8bbca;
+      --soft: #858ba1;
+      --lilac: #d4c8ff;
+      --line: rgba(237, 240, 247, .14);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #10131b;
-      color: #edf0f7;
+      background: var(--night);
+      color: var(--ink);
       font-synthesis: none;
       text-rendering: optimizeLegibility;
     }
@@ -19,51 +30,275 @@
     body {
       min-height: 100vh;
       margin: 0;
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-      background: radial-gradient(ellipse at 50% 42%, #272841 0, #171a27 38%, #10131b 76%);
+      background:
+        radial-gradient(ellipse at 75% 20%, #29254377 0, transparent 38rem),
+        var(--night);
     }
-    main { width: min(100%, 48rem); text-align: center; }
-    .mark {
-      width: 4.5rem;
-      height: 4.5rem;
+    a { color: inherit; text-decoration-color: #7775a4; text-underline-offset: .25em; }
+    a:hover { color: var(--lilac); }
+    .page { width: min(100% - 3rem, 68rem); margin: 0 auto; }
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 5.5rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .wordmark { display: inline-flex; align-items: center; gap: .7rem; color: var(--ink); letter-spacing: .06em; }
+    .wordmark-mark {
+      width: 1.7rem;
+      aspect-ratio: 1;
       display: grid;
       place-items: center;
-      margin: 0 auto 2rem;
       border: 1px solid #7775a4;
       border-radius: 50%;
-      color: #d4c8ff;
-      font-size: 1.75rem;
-      box-shadow: 0 0 3rem #9b84ff26, inset 0 0 1.5rem #9b84ff16;
+      color: var(--lilac);
+      font-size: .85rem;
     }
-    .eyebrow {
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: clamp(2rem, 7vw, 6rem);
+      padding: clamp(4.5rem, 10vw, 8rem) 0 5.5rem;
+    }
+    .eyebrow, .section-label {
       color: #b9addd;
-      font-size: .72rem;
+      font-size: .68rem;
       font-weight: 650;
       letter-spacing: .2em;
       text-transform: uppercase;
     }
     h1 {
-      margin: 1rem 0 .75rem;
-      font-size: clamp(3.5rem, 12vw, 7rem);
+      margin: 1rem 0 1.4rem;
+      font-size: clamp(4.2rem, 10vw, 7.2rem);
       font-weight: 520;
       letter-spacing: -.075em;
-      line-height: .95;
+      line-height: .9;
     }
-    p { color: #b8bbca; font-size: 1.05rem; line-height: 1.7; }
-    footer { margin-top: 5rem; color: #82869a; font-size: .78rem; letter-spacing: .08em; }
-    a { color: inherit; text-decoration-color: #7775a4; text-underline-offset: .25em; }
-    a:hover { color: #d4c8ff; }
+    .lead {
+      max-width: 34rem;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.8;
+    }
+    .concept-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      margin-top: 2rem;
+      padding: .55rem .8rem;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: var(--muted);
+      font-size: .75rem;
+    }
+    .concept-tag::before { content: ""; width: .4rem; aspect-ratio: 1; border-radius: 50%; background: var(--lilac); }
+    .scene {
+      position: relative;
+      min-height: 24rem;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(212, 200, 255, .2);
+      border-radius: 1.1rem;
+      background:
+        radial-gradient(ellipse at 50% 48%, rgba(149, 131, 212, .27), transparent 35%),
+        linear-gradient(150deg, #27263c, #171b2a 68%, #11151f);
+      box-shadow: 0 2rem 5rem #080a1370, inset 0 0 3rem #a78bfa0c;
+    }
+    .scene::before, .scene::after, .orbit {
+      position: absolute;
+      width: min(67%, 18rem);
+      aspect-ratio: 1;
+      border: 1px solid rgba(212, 200, 255, .28);
+      border-radius: 50%;
+    }
+    .scene::before { content: ""; transform: scaleY(.57) rotate(-28deg); }
+    .scene::after { content: ""; transform: scaleY(.57) rotate(28deg); }
+    .orbit { width: min(48%, 13rem); border-color: rgba(212, 200, 255, .45); }
+    .scene-core {
+      z-index: 1;
+      width: 1rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #eee8ff;
+      box-shadow: 0 0 1rem .3rem #c9b8ff99, 0 0 4rem 1.3rem #a78bfa50;
+    }
+    .scene-label {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: #d0cde0;
+      font-size: .64rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .section { padding: 4.5rem 0; border-top: 1px solid var(--line); }
+    .section-heading {
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2rem;
+    }
+    h2 { max-width: 42rem; margin: 0; font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 450; letter-spacing: -.04em; line-height: 1.2; }
+    .section-copy { max-width: 42rem; margin: .8rem 0 0; color: var(--muted); line-height: 1.8; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .step {
+      min-height: 12rem;
+      padding: 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: .75rem;
+      background: linear-gradient(145deg, #ffffff08, transparent 75%);
+    }
+    .step-index { color: var(--lilac); font-size: .72rem; letter-spacing: .12em; }
+    .step h3 { margin: 1.6rem 0 .55rem; font-size: 1.05rem; font-weight: 550; }
+    .step p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.7; }
+    .viewer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 7vw, 6rem);
+      align-items: center;
+      padding: 3rem;
+      border: 1px solid rgba(212, 200, 255, .17);
+      border-radius: 1rem;
+      background: linear-gradient(120deg, #201e32, #191d2a 70%);
+    }
+    .viewer p { margin: 1rem 0 0; color: var(--muted); line-height: 1.8; }
+    .viewer-device {
+      width: min(100%, 16rem);
+      justify-self: center;
+      aspect-ratio: 1.55;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .45rem;
+      padding: .65rem;
+      border: 1px solid #8a82aa;
+      border-radius: 1.15rem;
+      background: #10131b;
+      box-shadow: 0 1rem 3rem #090a1290;
+    }
+    .lens {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: .75rem;
+      background: radial-gradient(circle at 50% 50%, #a99bdd78, #403b6088 32%, #202438 72%);
+    }
+    .lens::before { content: ""; width: 57%; aspect-ratio: 1; border: 1px solid #ddd5ff9c; border-radius: 50%; box-shadow: 0 0 1.5rem #c9b8ff40; }
+    .viewer-caption { margin-top: .9rem; color: var(--soft); font-size: .68rem; text-align: center; letter-spacing: .1em; text-transform: uppercase; }
+    .agency {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: center;
+      padding: 1.5rem 0 4.5rem;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.7;
+    }
+    .agency strong { color: var(--ink); font-weight: 550; }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.5rem 0 2rem;
+      border-top: 1px solid var(--line);
+      color: var(--soft);
+      font-size: .72rem;
+      letter-spacing: .07em;
+    }
+    @media (max-width: 760px) {
+      .hero, .section-heading, .viewer { grid-template-columns: 1fr; }
+      .hero { gap: 3rem; padding-top: 4rem; }
+      .scene { min-height: 19rem; }
+      .steps { grid-template-columns: 1fr; }
+      .step { min-height: 0; }
+      .step h3 { margin-top: 1rem; }
+      .viewer { padding: 1.5rem; }
+      .agency, footer { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <div class="mark" aria-hidden="true">✳</div>
-    <div class="eyebrow">Castalia Institute</div>
-    <h1>Hypno</h1>
-    <p>A new project is taking shape.</p>
-    <footer><a href="https://castalia.institute">CASTALIA.INSTITUTE ↗</a></footer>
-  </main>
+  <div class="page">
+    <header class="topline">
+      <a class="wordmark" href="#top"><span class="wordmark-mark" aria-hidden="true">✳</span>Hypno</a>
+      <span>A Castalia Institute experiment</span>
+    </header>
+    <main id="top">
+      <section class="hero" aria-labelledby="title">
+        <div>
+          <div class="eyebrow">AI-guided · audio · visual</div>
+          <h1 id="title">Hypno</h1>
+          <p class="lead">An AI guide for immersive hypnotic experiences—composing spoken guidance, generated sound, and visual worlds around a conversation with you.</p>
+          <span class="concept-tag">A concept taking shape</span>
+        </div>
+        <div class="scene" role="img" aria-label="Abstract, softly layered visual field representing a generated environment">
+          <span class="orbit" aria-hidden="true"></span>
+          <span class="scene-core" aria-hidden="true"></span>
+          <div class="scene-label"><span>Visual field</span><span>Concept study · 01</span></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="experience-title">
+        <div class="section-heading">
+          <div class="section-label">The experience</div>
+          <div>
+            <h2 id="experience-title">A conversation becomes a place to enter.</h2>
+            <p class="section-copy">Hypno explores how an AI hypnotist might shape a guided journey in real time: listening for what you want from the session, then bringing voice, sound, and imagery together into one coherent atmosphere.</p>
+          </div>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-index">01 / CONVERSE</div>
+            <h3>Begin with intention</h3>
+            <p>Describe the kind of experience you want. The guide helps settle on a theme, pace, and style before the journey begins.</p>
+          </article>
+          <article class="step">
+            <div class="step-index">02 / COMPOSE</div>
+            <h3>Voice, sound, and scene</h3>
+            <p>Generated narration and sound meet a visual environment designed to deepen focus without demanding attention.</p>
+          </article>
+          <article class="step">
+            <div class="step-index">03 / EXPLORE</div>
+            <h3>Stay in your own hands</h3>
+            <p>The experience follows your choices. Pause, redirect, or leave whenever you want; the guide never takes control.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section viewer" aria-labelledby="viewer-title">
+        <div>
+          <div class="section-label">A first interface direction</div>
+          <h2 id="viewer-title">A world in a phone-sized viewer.</h2>
+          <p>We’re exploring a phone-based VR viewer in the spirit of Google Cardboard: an approachable way to place a generated visual scene around the listener. A regular screen remains part of the idea, too.</p>
+        </div>
+        <div>
+          <div class="viewer-device" role="img" aria-label="A concept illustration of a split-lens phone-based VR viewer">
+            <div class="lens"></div>
+            <div class="lens"></div>
+          </div>
+          <div class="viewer-caption">Phone-based VR · concept illustration</div>
+        </div>
+      </section>
+
+      <div class="agency"><span><strong>Guided by an AI. Directed by you.</strong></span><span>Research and design concept · no live sessions yet</span></div>
+    </main>
+    <footer><span>Castalia Institute</span><a href="https://castalia.institute">castalia.institute ↗</a></footer>
+  </div>
 </body>
 </html>
