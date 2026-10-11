@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10131b">
+  <meta name="description" content="A local prototype for AI-guided hypnotic journeys through spoken guidance, generated sound, and procedural visuals.">
+  <meta name="application-name" content="Hypno">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Hypno — Guided session</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="../" aria-label="Hypno home">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>hypno</span>
+      </a>
+      <div class="header-status"><span class="status-dot" aria-hidden="true"></span><span id="network-label">Local prototype</span></div>
+    </header>
+
+    <main>
+      <section id="setup-view" class="setup-view" aria-labelledby="page-title">
+        <div class="intro-block">
+          <p class="eyebrow">A small experiment in attention</p>
+          <h1 id="page-title">Set the scene.<br><span>Keep the choice.</span></h1>
+          <p class="intro-copy">Shape a short guided journey from your intention, a softly spoken voice, and a living visual field. You can pause or leave at any moment.</p>
+        </div>
+
+        <form id="session-form" class="session-form">
+          <fieldset class="field-group">
+            <legend>What would you like to explore?</legend>
+            <div class="intention-options" role="group" aria-label="Choose a session direction">
+              <button class="intention-option is-selected" type="button" data-focus="settle" aria-pressed="true">
+                <span class="option-icon" aria-hidden="true">◌</span><span>Settle</span><small>Ease into stillness</small>
+              </button>
+              <button class="intention-option" type="button" data-focus="focus" aria-pressed="false">
+                <span class="option-icon" aria-hidden="true">◎</span><span>Focus</span><small>Gather your attention</small>
+              </button>
+              <button class="intention-option" type="button" data-focus="imagine" aria-pressed="false">
+                <span class="option-icon" aria-hidden="true">✧</span><span>Imagine</span><small>Enter a quiet scene</small>
+              </button>
+            </div>
+            <label class="text-label" for="intention">Or name a theme <span>optional · stays on this device</span></label>
+            <input id="intention" name="intention" maxlength="80" autocomplete="off" placeholder="A shoreline at dusk, a clear beginning…">
+          </fieldset>
+
+          <fieldset class="field-group duration-group">
+            <legend>Choose a duration</legend>
+            <div class="duration-options" role="group" aria-label="Session duration">
+              <button class="duration-option" type="button" data-minutes="3" aria-pressed="false">3 <span>min</span></button>
+              <button class="duration-option is-selected" type="button" data-minutes="5" aria-pressed="true">5 <span>min</span></button>
+              <button class="duration-option" type="button" data-minutes="8" aria-pressed="false">8 <span>min</span></button>
+            </div>
+          </fieldset>
+
+          <fieldset class="field-group sound-options">
+            <legend>Shape the atmosphere</legend>
+            <label class="switch-row" for="voice-enabled"><span><strong>Spoken guidance</strong><small>Uses a voice available in your browser</small></span><input id="voice-enabled" type="checkbox" checked><span class="switch" aria-hidden="true"></span></label>
+            <label class="switch-row" for="sound-enabled"><span><strong>Generated ambience</strong><small>A quiet, continuous tone created on this device</small></span><input id="sound-enabled" type="checkbox" checked><span class="switch" aria-hidden="true"></span></label>
+          </fieldset>
+
+          <div class="start-row">
+            <button id="start-session" class="primary-button" type="submit">Begin your session <span aria-hidden="true">↗</span></button>
+            <button id="install-app" class="install-button" type="button" hidden>Install Hypno</button>
+          </div>
+          <dialog id="install-help" class="install-dialog">
+            <form method="dialog">
+              <p class="eyebrow">Keep Hypno close</p>
+              <h2>Add Hypno to your Home Screen</h2>
+              <p>In Safari, use the Share menu, choose <strong>Add to Home Screen</strong>, then confirm. The app shell will be available offline after its first visit.</p>
+              <button class="primary-button" type="submit">Got it</button>
+            </form>
+          </dialog>
+          <p class="prototype-note"><span aria-hidden="true">✳</span> Local prototype: guidance is composed in your browser; no AI model is connected and no audio is recorded or uploaded.</p>
+          <p class="care-note">Choose a place where you can pause safely. This is a creative experience, not medical care or treatment.</p>
+        </form>
+      </section>
+
+      <section id="session-view" class="session-view" aria-labelledby="session-title" hidden>
+        <div class="session-topline">
+          <div><p class="eyebrow">Your guided space</p><h1 id="session-title">A moment, <span id="session-theme">at your pace.</span></h1></div>
+          <button id="vr-toggle" class="quiet-button" type="button" aria-pressed="false"><span aria-hidden="true">◉</span> Cardboard view</button>
+        </div>
+
+        <div id="visual-field" class="visual-field" data-focus="settle">
+          <div class="visual-halo halo-back" aria-hidden="true"></div>
+          <div class="visual-halo halo-front" aria-hidden="true"></div>
+          <canvas id="visual-canvas" aria-label="Slowly shifting generated visual environment"></canvas>
+          <div class="stereo-view" aria-hidden="true"><canvas id="left-eye"></canvas><canvas id="right-eye"></canvas></div>
+          <div class="visual-caption"><span id="scene-name">Still water</span><span id="scene-clock">05:00</span></div>
+        </div>
+
+        <div class="session-copy" aria-live="polite" aria-atomic="true">
+          <p id="guide-line">Take a moment to arrive. Nothing needs to happen all at once.</p>
+        </div>
+        <div class="session-progress" aria-hidden="true"><div id="progress-bar"></div></div>
+        <div class="session-controls">
+          <button id="pause-session" class="primary-button" type="button"><span aria-hidden="true">Ⅱ</span> Pause</button>
+          <button id="end-session" class="quiet-button" type="button">End session</button>
+        </div>
+        <p class="session-agency">Stay as you are, change the scene, or stop whenever you choose.</p>
+      </section>
+
+      <section id="complete-view" class="complete-view" aria-labelledby="complete-title" hidden>
+        <div class="complete-mark" aria-hidden="true">✳</div>
+        <p class="eyebrow">Session complete</p>
+        <h1 id="complete-title">Take your time<br><span>coming back.</span></h1>
+        <p class="intro-copy">Let the room come into focus in its own time. Nothing to report and nothing to prove.</p>
+        <button id="new-session" class="primary-button" type="button">Return to the beginning</button>
+      </section>
+    </main>
+
+    <footer class="app-footer"><a href="../">About Hypno</a><span id="offline-note">Designed to work offline after your first visit</span></footer>
+    <div id="live-status" class="visually-hidden" role="status" aria-live="polite"></div>
+  </div>
+  <script src="./app.js" defer></script>
+</body>
+</html>

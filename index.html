@@ -99,6 +99,17 @@
       font-size: .75rem;
     }
     .concept-tag::before { content: ""; width: .4rem; aspect-ratio: 1; border-radius: 50%; background: var(--lilac); }
+    .app-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      margin: 1.2rem 0 0 .8rem;
+      color: var(--ink);
+      font-size: .82rem;
+      text-decoration-color: #7775a4;
+      text-underline-offset: .25em;
+    }
+    .app-link span { color: var(--lilac); }
     .scene {
       position: relative;
       min-height: 24rem;
@@ -246,6 +257,7 @@
           <h1 id="title">Hypno</h1>
           <p class="lead">An AI guide for immersive hypnotic experiences—composing spoken guidance, generated sound, and visual worlds around a conversation with you.</p>
           <span class="concept-tag">A concept taking shape</span>
+          <a class="app-link" href="app/">Open the guided-session prototype <span aria-hidden="true">↗</span></a>
         </div>
         <div class="scene" role="img" aria-label="Abstract, softly layered visual field representing a generated environment">
           <span class="orbit" aria-hidden="true"></span>
@@ -296,7 +308,7 @@
         </div>
       </section>
 
-      <div class="agency"><span><strong>Guided by an AI. Directed by you.</strong></span><span>Research and design concept · no live sessions yet</span></div>
+      <div class="agency"><span><strong>Guided by an AI. Directed by you.</strong></span><span>Local session prototype · no AI service connected yet</span></div>
     </main>
     <footer><span>Castalia Institute</span><a href="https://castalia.institute">castalia.institute ↗</a></footer>
   </div>
